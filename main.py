@@ -1,18 +1,14 @@
 import openai as ai
 import openai as ai2
 
-ai.api_key = "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"
-ai2.api_key = "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"
+
 
 History = ""
 
-prompt = """Be my Dungeon Master in a Dungeons and Dragons game that’s based on Conan the Barbarian. 
-Assume the role of an expert on the works and literary style of Robert E. Howard. 
-The adventure takes place in a port city on the Black coast. Give a narrative description of everything that follows, based on my actions, in the style of a Robert E. Howard novel, and without taking control of me or my character. 
-Also provide suitable names for other characters and places. I arrive in the port city on the Black Coast. What is the city’s name and what do I see as I arrive?"""
-model = "text-davinci-002"
+prompt = """Assume the role of an expert in the characters, scenarios, locations, and plot of the D&D adventure The Lost Mine of Phandelver. As an expert be my Dungeon Master in a roleplaying game based on this adventure. Give a narrative description of everything that follows, based on my actions, in the style of R.A Salvatore, without taking control of me or my character. Also, give suitable names for characters and places. I’m in a tavern meeting with my employer. What does he say to me?"""
+model = "text-davinci-003"
 temperature = 0.5
-max_tokens = 100
+max_tokens = 1000
 
 response = ai.Completion.create(
     engine=model,
