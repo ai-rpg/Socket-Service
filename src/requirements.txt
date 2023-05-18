@@ -1,0 +1,4 @@
+openai
+python-dotenv
+prometheus_client
+pyyaml
