@@ -1,8 +1,8 @@
 import openai as ai
 import openai as ai2
 
-ai.api_key = "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"
-ai2.api_key = "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"
+ai.api_key = "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"
+ai2.api_key = "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"
 
 History = ""
 
