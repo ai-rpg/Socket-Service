@@ -1,0 +1,14 @@
+fate:
+- roll: 1
+  result: "No, and..."
+- roll: 2
+  result: "No"
+- roll: 3 
+  result: "No, but..."
+- roll: 4
+  result: "Yes, but..."
+- roll: 5
+  result: "Yes"
+- roll: 6
+  result: "Yes, and..."
+  
