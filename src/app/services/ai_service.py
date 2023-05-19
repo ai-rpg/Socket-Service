@@ -5,6 +5,8 @@ from interface.i_ai_service import IAIService
 import openai as ai
 from logger import log
 from config import OPENAPIKEY
+
+
 class AIService(IAIService):
     def __init__(self):
         self.ai = ai
@@ -18,8 +20,6 @@ class AIService(IAIService):
             engine=model.model,
             prompt=prompt,
             temperature=model.temperature,
-            max_tokens=model.max_token
+            max_tokens=model.max_token,
         )
         return response.choices[0].text
-
-    

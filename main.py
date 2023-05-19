@@ -12,10 +12,7 @@ temperature = 0.5
 max_tokens = 1000
 
 response = ai.Completion.create(
-    engine=model,
-    prompt=prompt,
-    temperature=temperature,
-    max_tokens=max_tokens
+    engine=model, prompt=prompt, temperature=temperature, max_tokens=max_tokens
 )
 History += response.choices[0].text
 print(response.choices[0].text.replace(".", ".\n"))
@@ -29,42 +26,39 @@ summary = ai2.ChatCompletion.create(
     frequency_penalty=0.5,
     messages=[
         {
-          "role": "system",
-          "content": "You are a helpful assistant for text summarization.",
+            "role": "system",
+            "content": "You are a helpful assistant for text summarization.",
         },
         {
-          "role": "user",
-          "content": f"Summarize this : {History}",
+            "role": "user",
+            "content": f"Summarize this : {History}",
         },
     ],
 )
 
 for x in range(10):
-  prompt = input(">>")
-  History += prompt
+    prompt = input(">>")
+    History += prompt
 
-  response = ai.Completion.create(
-    engine=model,
-    prompt=summary.choices[0].message.content + " " + prompt,
-    temperature=temperature,
-    max_tokens=max_tokens
-  ) 
-  print(response.choices[0].text)
-  History += response.choices[0].text
-  summary = ai2.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    max_tokens=100,
-    temperature=0.7,
-    top_p=0.5,
-    frequency_penalty=0.5,
-    messages=[
-        {
-          "role": "system",
-          "content": "You are a helpful assistant for text summarization.",
-        },
-        {
-          "role": "user",
-          "content": f"Summarize this : {History}"
-        },
-    ],
-  )
+    response = ai.Completion.create(
+        engine=model,
+        prompt=summary.choices[0].message.content + " " + prompt,
+        temperature=temperature,
+        max_tokens=max_tokens,
+    )
+    print(response.choices[0].text)
+    History += response.choices[0].text
+    summary = ai2.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        max_tokens=100,
+        temperature=0.7,
+        top_p=0.5,
+        frequency_penalty=0.5,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant for text summarization.",
+            },
+            {"role": "user", "content": f"Summarize this : {History}"},
+        ],
+    )

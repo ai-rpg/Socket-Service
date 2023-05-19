@@ -8,6 +8,7 @@ import openai as ai
 from logger import log
 from config import OPENAPIKEY
 
+
 class AISummaryService(IAISummaryService):
     def __init__(self):
         self.ai = ai
@@ -23,15 +24,10 @@ class AISummaryService(IAISummaryService):
             frequency_penalty=0.5,
             messages=[
                 {
-                "role": "system",
-                "content": "You are a helpful assistant for text summarization.",
+                    "role": "system",
+                    "content": "You are a helpful assistant for text summarization.",
                 },
-                {
-                "role": "user",
-                "content": f"Summarize this : {history}"
-                },
+                {"role": "user", "content": f"Summarize this : {history}"},
             ],
         )
         return response.choices[0].message.content
-
-    
