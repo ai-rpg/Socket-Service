@@ -19,12 +19,14 @@ export class ChatRoomPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      console.log(params)
       this.nickname = params['nickname'];
     });
 
     this.socket.on('message', (message: any) => this.messages.push(message));
 
     this.socket.on('users-changed', (data: { [x: string]: string; }) => {
+      console.log('here')
       const user = data['user'];
       if (data['event'] === 'left') {
         this.showToast('User left: ' + user);

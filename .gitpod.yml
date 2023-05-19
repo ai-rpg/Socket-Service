@@ -1,0 +1,3 @@
+tasks:
+  - init: cd mobile/ && npm install
+    command: npm build
