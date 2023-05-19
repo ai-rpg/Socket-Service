@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from game_details_repository import GameDetailsRepository
+    from interface.i_game_details_repository import IGameDetailsRepository
 
 @dataclass
 class GameDetails:
@@ -12,6 +12,3 @@ class GameDetails:
     author: str =""
     hook:str = ""
     game_type= ""
-
-    def get(self, game_details_repository: "GameDetailsRepository"):
-        return game_details_repository.get(self)
