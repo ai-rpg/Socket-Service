@@ -33,7 +33,7 @@ print(fate_service.generate_random_number())
 print(dm_response)
 nlp.get_intent(dm_response)
 
-#for x in range(3):
+# for x in range(3):
 #    user_text = input(">>")
 #    dm_text = dm_ai.get_response(summary + " " + user_text)
 #    history += dm_text

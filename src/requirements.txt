@@ -2,3 +2,7 @@ openai
 python-dotenv
 prometheus_client
 pyyaml
+websockets
+Flask
+Flask-Cors
+Flask-SocketI

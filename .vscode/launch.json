@@ -5,10 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "bootstrap",
             "type": "python",
             "request": "launch",
             "program": "src/app/bootstrap.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "websocket",
+            "type": "python",
+            "request": "launch",
+            "program": "src/app/websocket.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

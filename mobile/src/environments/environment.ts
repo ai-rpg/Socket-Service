@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  socketIoConfig: { // <1>
+    url: '5001-codeiain-openaidm-2ginbwaibrm.ws-eu97.gitpod.io', // <2>
+    options: {}
+  }
 };
 
 /*

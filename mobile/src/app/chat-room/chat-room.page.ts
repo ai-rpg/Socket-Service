@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-//import { Socket } from 'ngx-socket-io';
+import { Socket } from 'ngx-socket-io';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -9,11 +9,12 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./chat-room.page.scss'],
 })
 export class ChatRoomPage implements OnInit, OnDestroy {
-  messages = [];
+  messages:any = [];
   nickname = '';
-  message = '';
+  message: string = '';
 
   constructor(private route: ActivatedRoute,
+              private socket: Socket,
               private toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -21,24 +22,24 @@ export class ChatRoomPage implements OnInit, OnDestroy {
       this.nickname = params['nickname'];
     });
 
-    //this.socket.on('message', (message: any) => this.messages.push(message));
+    this.socket.on('message', (message: any) => this.messages.push(message));
 
-    // this.socket.on('users-changed', (data: { [x: string]: string; }) => {
-    //   const user = data['user'];
-    //   if (data['event'] === 'left') {
-    //     this.showToast('User left: ' + user);
-    //   } else {
-    //     this.showToast('User joined: ' + user);
-    //   }
-    // });
+    this.socket.on('users-changed', (data: { [x: string]: string; }) => {
+      const user = data['user'];
+      if (data['event'] === 'left') {
+        this.showToast('User left: ' + user);
+      } else {
+        this.showToast('User joined: ' + user);
+      }
+    });
   }
   sendMessage() {
-    //this.socket.emit('add-message', { text: this.message });
+    this.socket.emit('add-message', { text: this.message });
     this.message = '';
   }
 
   ngOnDestroy() {
-    //this.socket.disconnect();
+    this.socket.disconnect();
   }
 
   async showToast(msg: string) {
