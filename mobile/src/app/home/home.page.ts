@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +11,11 @@ export class HomePage {
 
   nickname = '';
 
-  constructor(private router: Router)  { }
+  constructor(private router: Router, private socket: Socket)  { }
 
   joinChat() {
-    // this.socket.connect();
-    // this.socket.emit('set-nickname', this.nickname);
+    this.socket.connect();
+    this.socket.emit('set-nickname', this.nickname);
     this.router.navigateByUrl(`chat-room/${this.nickname}`);
   }
 
