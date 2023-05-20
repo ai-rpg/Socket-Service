@@ -11,11 +11,9 @@ export class HomePage {
 
   nickname = '';
 
-  constructor(private router: Router, private socket: Socket)  { }
+  constructor(private router: Router)  { }
 
   joinChat() {
-    this.socket.connect();
-    this.socket.emit('set-nickname', this.nickname);
     this.router.navigateByUrl(`chat-room/${this.nickname}`);
   }
 

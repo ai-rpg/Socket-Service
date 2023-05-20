@@ -37,20 +37,30 @@ def http_call():
 
 @socketio.on("connect")
 def connected():
+    emit("connect",{"data":f"id: {request.sid} is connected"})
+    emit("message",{'text':"Creating game",'from':'DM', 'created': str(datetime.now())},broadcast=True)
     """event listener when client connects to the server"""
     print(request.sid)
     print("client has connected")
-    game_details = game_defails_respository.get()
-    base_prompt = prompt_repository.generate(game_details)
-    dm_response = dm_ai.get_response(base_prompt.prompt_string)
-    history.append(dm_response)
-    emit("connect",{"data":f"id: {request.sid} is connected"})
-    emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
-    summary['main'] = summary_ai.get_summary(' '.join(history))
+    # game_details = game_defails_respository.get()
+    # base_prompt = prompt_repository.generate(game_details)
+    # dm_response = dm_ai.get_response(base_prompt.prompt_string)
+    # history.append(dm_response)
+
+    # emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
+    # summary['main'] = summary_ai.get_summary(' '.join(history))
 
 @socketio.on('set-nickname')
 def setNickname(data):
     nicknames[request.sid] = data
+    if len(nicknames) == 1:
+        game_details = game_defails_respository.get()
+        base_prompt = prompt_repository.generate(game_details)
+        dm_response = dm_ai.get_response(base_prompt.prompt_string)
+        history.append(dm_response)
+        emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
+        summary['main'] = summary_ai.get_summary(' '.join(history))
+
     emit("users-changed", {'user':data, 'event': 'joined'})
 
 @socketio.on('add-message')
@@ -60,7 +70,6 @@ def handle_message(data):
     emit("message",{'text':str(data['text']),'from':nicknames[request.sid], 'created': str(datetime.now())},broadcast=True)
     dm_response = dm_ai.get_response(summary['main'] + "  " + data['text'])
     history.append(dm_response)
-    emit("message",{'text':str(data['text']),'from':nicknames[request.sid], 'created': str(datetime.now())},broadcast=True)
     emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
     summary['main'] = summary_ai.get_summary(' '.join(history))
 

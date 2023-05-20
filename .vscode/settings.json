@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "codeiain-1",
+        "projectKey": "codeiain_openai-DM"
+    }
+}

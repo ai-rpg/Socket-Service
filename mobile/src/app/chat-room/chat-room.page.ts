@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
-import { ToastController } from '@ionic/angular';
+import { IonContent, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat-room',
@@ -12,6 +12,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   messages:any = [];
   nickname = '';
   message: string = '';
+  @ViewChild(IonContent, {read: IonContent, static: false}) content: IonContent;
 
   constructor(private route: ActivatedRoute,
               private socket: Socket,
@@ -20,10 +21,15 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log(params)
+      this.socket.connect();
       this.nickname = params['nickname'];
+      this.socket.emit('set-nickname', this.nickname);
     });
 
-    this.socket.on('message', (message: any) => this.messages.push(message));
+    this.socket.on('message', (message: any) => {
+      this.messages.push(message);
+      this.ScrollToBottom();
+    });
 
     this.socket.on('users-changed', (data: { [x: string]: string; }) => {
       console.log('here')
@@ -35,6 +41,14 @@ export class ChatRoomPage implements OnInit, OnDestroy {
       }
     });
   }
+
+  ScrollToBottom(){
+    setTimeout(() => {
+      this.content.scrollToBottom(300);
+   }, 1000);
+
+  }
+
   sendMessage() {
     this.socket.emit('add-message', { text: this.message });
     this.message = '';
