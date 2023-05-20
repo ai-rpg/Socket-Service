@@ -24,6 +24,10 @@ dm_ai = AIService()
 summary_ai = AISummaryService()
 nicknames = {}
 
+# work out a better way
+history = []
+summary = {}
+
 
 @app.route("/http-call")
 def http_call():
@@ -36,7 +40,13 @@ def connected():
     """event listener when client connects to the server"""
     print(request.sid)
     print("client has connected")
+    game_details = game_defails_respository.get()
+    base_prompt = prompt_repository.generate(game_details)
+    dm_response = dm_ai.get_response(base_prompt.prompt_string)
+    history.append(dm_response)
     emit("connect",{"data":f"id: {request.sid} is connected"})
+    emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
+    summary['main'] = summary_ai.get_summary(' '.join(history))
 
 @socketio.on('set-nickname')
 def setNickname(data):
@@ -48,6 +58,11 @@ def handle_message(data):
     """event listener when client types a message"""
     print("data from the front end: ",str(data))
     emit("message",{'text':str(data['text']),'from':nicknames[request.sid], 'created': str(datetime.now())},broadcast=True)
+    dm_response = dm_ai.get_response(summary['main'] + "  " + data['text'])
+    history.append(dm_response)
+    emit("message",{'text':str(data['text']),'from':nicknames[request.sid], 'created': str(datetime.now())},broadcast=True)
+    emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
+    summary['main'] = summary_ai.get_summary(' '.join(history))
 
 @socketio.on("disconnect")
 def disconnected():
