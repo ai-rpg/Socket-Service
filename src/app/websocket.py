@@ -55,11 +55,11 @@ def setNickname(data):
     nicknames[request.sid] = data
     if len(nicknames) == 1:
         game_details = game_defails_respository.get()
-        base_prompt = prompt_repository.generate(game_details)
+        base_prompt = prompt_repository.generate(game_details, data)
         dm_response = dm_ai.get_response(base_prompt.prompt_string)
-        history.append(dm_response)
-        emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
-        summary['main'] = summary_ai.get_summary(' '.join(history))
+    history.append(dm_response)
+    emit("message",{'text':dm_response,'from':'DM', 'created': str(datetime.now())},broadcast=True)
+    summary['main'] = summary_ai.get_summary(' '.join(history))
 
     emit("users-changed", {'user':data, 'event': 'joined'})
 
