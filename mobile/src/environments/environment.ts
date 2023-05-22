@@ -7,7 +7,18 @@ export const environment = {
   socketIoConfig: { // <1>
     url: '5001-codeiain-openaidm-2ginbwaibrm.ws-eu97.gitpod.io', // <2>
     options: {}
-  }
+  },
+  auth0: {
+    domain: 'dev-codeiain.us.auth0.com',
+    clientId: 'sNjX38pTiG4b8ZPlft81689j914AzivC',
+    authorizationParams: {
+      redirect_uri: 'https://4200-codeiain-openaidm-2ginbwaibrm.ws-eu97.gitpod.io',
+    },
+    errorPath: '/callback',
+  },
+  api: {
+    serverUrl: 'https://6060-codeiain-openaidm-2ginbwaibrm.ws-eu97.gitpod.io',
+  },
 };
 
 /*

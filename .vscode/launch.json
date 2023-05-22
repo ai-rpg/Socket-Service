@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "bootstrap",
             "type": "python",
@@ -16,7 +17,16 @@
             "name": "websocket",
             "type": "python",
             "request": "launch",
-            "program": "src/app/websocket.py",
+            "program": "websocket_server/src/app/websocket.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        ,
+        {
+            "name": "auth Server",
+            "type": "python",
+            "request": "launch",
+            "program": "auth_server/src/app/bootstrap.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

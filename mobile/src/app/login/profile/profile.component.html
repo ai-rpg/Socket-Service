@@ -1,0 +1,19 @@
+<div *ngIf="user$ | async as user" class="profile-container">
+  <ion-avatar class="avatar">
+    <img [src]="user.picture" [alt]="user.name" />
+  </ion-avatar>
+  <h2>name = {{ user.name }}</h2>
+  <p>email = {{ user.email }}</p>
+  <p>app_metadata = {{user["app_metadata"]}}</p>
+  <p>blocked = {{user["blocked"]}}</p>
+  <p>blocked_for = {{user["blocked_for"]}}</p>
+  <p>created_at = {{user["created_at"]}}</p>
+  <p>email_verified = {{user["email_verified"]}}</p>
+  <p>family_name = {{user["family_name"]}}</p>
+  <p>user_id = {{user["user_id"]}}</p>
+  <p>user_metadata = {{user["user_metadata"]}}</p>
+  <p>username = {{user["username"]}}</p>
+  <div class="row" *ngIf="profileJson">
+    <pre class="col-12 text-light bg-dark p-4">{{ profileJson }}</pre>
+  </div>
+</div>
