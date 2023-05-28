@@ -20,10 +20,9 @@ class AIService(IAIService):
 
         log.info("getting responce for prompt -> " + prompt)
         response = self.ai.ChatCompletion.create(
-            model="gpt-3.5-turbo", #model.model,
-            messages=self.history
+            model="gpt-3.5-turbo", messages=self.history  # model.model,
         )
         return response.choices[0].message.content
 
     def store_converation(self, role, content):
-        self.history.append({'role':role, 'content': content})
+        self.history.append({"role": role, "content": content})
