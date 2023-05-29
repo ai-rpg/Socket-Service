@@ -1,6 +1,6 @@
 from interface.i_auth_repository import IAuthRepository
-
-class AuthRepository(IAuthRepository):
+from interface.i_couchbase_repository import ICouchbaseRepository
+class AuthRepository(IAuthRepository, ICouchbaseRepository):
 
     def __init__(self, mangement_api_token):
         self.mangement_api_token = mangement_api_token
