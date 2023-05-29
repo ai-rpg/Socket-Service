@@ -1,3 +1,9 @@
+ports:
+  - name: Web App
+    description: The main application web server
+    port: 8080
+    onOpen: open-browser
+
 tasks:
   - init: cd mobile/ && npm install
     command: npm build

@@ -6,6 +6,6 @@ class IAuthService(metaclass=abc.ABCMeta):
     def register_user(self, email, password):
         raise NotImplementedError
 
-    @ab.abstractclassmethod
+    @abc.abstractclassmethod
     def authenticate_user(self, email, password):
         raise NotImplementedError
