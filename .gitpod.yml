@@ -1,7 +1,24 @@
 ports:
-  - name: Web App
+  - name: Alert Manager
     description: The main application web server
+    port: 9093
+  - name: SonarCloud Exporter
+    port: 9999
+  - name: couchbase
+    port: 8091
+    onOpen: open-browser
+  - name: redis
+    port: 6379
+  - name: redis Exporter
+    port: 9121
+  - name: prometheus
+    port: 9090
+  - name: cadvisor
     port: 8080
+  - name: grafana
+    port: 3000
+  - name: auth server
+    port: 8001
     onOpen: open-browser
 
 tasks:
