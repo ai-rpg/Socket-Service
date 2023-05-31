@@ -9,4 +9,4 @@ spec:
   type: service
   lifecycle: unknown
   owner: staff
-  consumesApis: openai-DM-AuthService
+  consumesApis: [openai-DM-AuthService]
