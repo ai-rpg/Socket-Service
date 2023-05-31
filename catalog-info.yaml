@@ -2,7 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: openai-DM
-  namespace: openai-DM
   annotations:
     github.com/project-slug: codeiain/openai-DM
 spec:
