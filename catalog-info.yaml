@@ -9,6 +9,7 @@ spec:
   system: openai-DM
   lifecycle: unknown
   owner: staff
-  consumesApis: ['openai-DM-Auth-Service']
+  consumesApis: 
+    - openai-DM-Auth-Service
   definition:
     $text: /asyncapi.yaml
