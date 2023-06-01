@@ -8,11 +8,12 @@ spec:
 ---
 ---
 apiVersion: backstage.io/v1alpha1
-kind: System
+kind: Component
 metadata:
   name: openAI-DM_Socket-Server1
 spec:
+  type: service
   owner: me
-
-
-
+    system: openAI-DM_Socket-Server
+  providesApi:
+    - web-socket-api
