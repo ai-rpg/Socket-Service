@@ -20,6 +20,7 @@ spec:
     - openai-dm-web-socket-api
   consumesApis:
     - openai-dm-character-api
+    - openai-dm-auth-api
 ---
 ---
 apiVersion: backstage.io/v1alpha1
