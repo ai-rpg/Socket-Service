@@ -3,4 +3,6 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: openAI-DM_Socket-Server
+spec:
+  owner: me
 ---
