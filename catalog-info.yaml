@@ -1,11 +1,12 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: openai-DM
+  name: openai-DM-Socket-Server
   annotations:
     github.com/project-slug: codeiain/openai-DM
 spec:
   type: service
+  system: openai-DM
   lifecycle: unknown
   owner: staff
   consumesApis: [openai-DM-AuthService]
