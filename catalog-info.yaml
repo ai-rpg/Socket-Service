@@ -1,6 +1,6 @@
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
-name: openAI-DM Socket-Server
+metadata:
+  name: openAI-DM Socket-Server
 ---
-
