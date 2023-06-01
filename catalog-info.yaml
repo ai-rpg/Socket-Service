@@ -1,16 +1,27 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+name: openAI-DM Socket-Server
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+type: service
+name: Web Socket Server
+system:  openAI-DM Socket-Server
+providesApi:
+  - web-socket-api
+---
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: openai-DM-Socket-Server
+  name: web-socket-api
   annotations:
     github.com/project-slug: codeiain/openai-DM-Socket-Server
 spec:
   type: asyncapi
-  system: openai-DM
+  system:  openAI-DM Socket-Server
   lifecycle: unknown
   owner: staff
   definition:
     $text: /asyncapi.yaml
-consumesApis: 
-  - openai-DM-Auth-Service
-  - openai-DM-character-service
+---
