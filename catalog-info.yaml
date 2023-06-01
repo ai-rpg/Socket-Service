@@ -6,5 +6,13 @@ metadata:
 spec:
   owner: me
 ---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+type: service
+metadata:
+  name: web-socket-server
+spec:
+  owner: me
+
 
 
