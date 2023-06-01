@@ -11,8 +11,8 @@ metadata:
   name: Web Socket Server
 spec:
   system: openAI-DM Socket-Server
-providesApi:
-  - web-socket-api
+  providesApi:
+    - web-socket-api
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
