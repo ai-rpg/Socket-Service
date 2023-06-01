@@ -6,6 +6,7 @@ metadata:
 spec:
   owner: me
 ---
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 type: service
