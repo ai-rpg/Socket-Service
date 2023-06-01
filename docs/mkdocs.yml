@@ -1,0 +1,7 @@
+site_name: 'openai-dm-socket-server'
+
+nav:
+  - Home: index.md
+
+plugins:
+  - techdocs-core
