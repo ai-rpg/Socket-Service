@@ -5,7 +5,7 @@ metadata:
   annotations:
     github.com/project-slug: codeiain/openai-DM-Socket-Server
 spec:
-  type: websocket
+  type: asyncapi
   system: openai-DM
   lifecycle: unknown
   owner: staff
