@@ -3,7 +3,7 @@ kind: API
 metadata:
   name: openai-DM-Socket-Server
   annotations:
-    github.com/project-slug: codeiain/openai-DM
+    github.com/project-slug: codeiain/openai-DM-Socket-Server
 spec:
   type: websocket
   system: openai-DM
