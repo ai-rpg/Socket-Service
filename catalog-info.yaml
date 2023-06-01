@@ -1,13 +1,16 @@
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
-name: openAI-DM Socket-Server
+metadata:
+  name: openAI-DM Socket-Server
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 type: service
-name: Web Socket Server
-system:  openAI-DM Socket-Server
+metadata:
+  name: Web Socket Server
+spec:
+  system: openAI-DM Socket-Server
 providesApi:
   - web-socket-api
 ---
