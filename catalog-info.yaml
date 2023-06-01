@@ -10,3 +10,5 @@ spec:
   lifecycle: unknown
   owner: staff
   consumesApis: [openai-DM-Auth-Service]
+  definition:
+    $text: /asyncapi.yaml
