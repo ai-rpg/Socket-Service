@@ -11,6 +11,6 @@ spec:
   owner: staff
   definition:
     $text: /asyncapi.yaml
-  consumesApis: 
-    - openai-DM-Auth-Service
-    - openai-DM-character-service
+consumesApis: 
+  - openai-DM-Auth-Service
+  - openai-DM-character-service
