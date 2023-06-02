@@ -7,7 +7,7 @@ metadata:
   #   backstage.io/techdocs-ref: dir:.
   #   github.com/project-slug: codeiain/openai-DM-character-service
 spec:
-  owner: me
+  owner: iain
 ---
 ---
 apiVersion: backstage.io/v1alpha1
@@ -20,13 +20,15 @@ metadata:
 spec:
   type: service
   lifecycle: unknown
-  owner: me
+  owner: iain
   system: openai-dm
   providesApi:
     - openai-dm-web-socket-api
   consumesApis:
     - openai-dm-character-api
     - openai-dm-auth-api
+  dependsOn:
+    - resource:prometheus
 ---
 ---
 apiVersion: backstage.io/v1alpha1
@@ -40,7 +42,7 @@ spec:
   type: asyncapi
   system:  openai-dm
   lifecycle: unknown
-  owner: me
+  owner: iain
   definition:
     $text: /asyncapi.yaml
 ---
