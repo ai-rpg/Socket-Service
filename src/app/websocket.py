@@ -1,27 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-from config import BUILD_VERSION, METRICS_PATH, NAME, OPENAPIKEY
+from config import HTTPPORT, BUILD_VERSION, METRICS_PATH, NAME
 from logger import log
+from services.msg_service import MsgService
 
-from adapter.game_details_repository import GameDetailsRepository
-from adapter.prompt_repository import PromptRepository
-from services.ai_service import AIService
-from services.ai_summary_service import AISummaryService
-from services.fate_service import FateService
-from services.nlp_service import NlpService
 from datetime import datetime
 
 app = Flask(__name__)
 
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
+msg_service = MsgService()
 
-fate_service = FateService()
-game_defails_respository = GameDetailsRepository()
-prompt_repository = PromptRepository()
-dm_ai = AIService()
-# summary_ai = AISummaryService()
 nicknames = {}
 
 # work out a better way
@@ -103,4 +94,4 @@ def disconnected():
 
 
 if __name__ == "__main__":
-    socketio.run(app, port=5001, host="0.0.0.0")
+    socketio.run(app, port=int(HTTPPORT), host="0.0.0.0")

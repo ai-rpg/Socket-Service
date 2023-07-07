@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service msg {
+    rpc GotMsg(msg_request) returns (msg_responce) {}
+}
+
+message msg_request {
+    string user_id = 1;
+    string msg = 2;
+}
+
+message msg_responce {
+    string msg = 1;
+}
