@@ -5,4 +5,4 @@ pyyaml
 websockets
 Flask
 Flask-Cors
-Flask-SocketI
+Flask-SocketIO

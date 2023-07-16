@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from config import HTTPPORT, BUILD_VERSION, METRICS_PATH, NAME
+from metrics import WEBSOCKET_ACTIVE
 from logger import log
 from services.msg_service import MsgService
+from domain.game_caches_model import GameCache, GameCacheList
 
 from datetime import datetime
 
@@ -18,6 +20,25 @@ nicknames = {}
 # work out a better way
 
 
+class WebSocketServer:
+    def __init__(self):
+
+        pass
+
+    def connected(self):
+        WEBSOCKET_ACTIVE.inc()
+        self.games.append(GameCache('1', request.sid, ''))
+        pass
+
+    def message(self, data):
+        currentgame = [game for game in self.games if game.get('sid')==request.sid][0]
+        pass
+
+    def disconnect(self):
+        WEBSOCKET_ACTIVE.dec()
+        pass
+
+
 @app.route("/http-call")
 def http_call():
     """return JSON with string data as the value"""
@@ -27,15 +48,16 @@ def http_call():
 
 @socketio.on("connect")
 def connected():
-    emit("connect", {"data": f"id: {request.sid} is connected"})
-    emit(
-        "message",
-        {"text": "Creating game", "from": "DM", "created": str(datetime.now())},
-        broadcast=True,
-    )
-    """event listener when client connects to the server"""
-    print(request.sid)
-    print("client has connected")
+    web_socket_server.connected()
+    # emit("connect", {"data": f"id: {request.sid} is connected"})
+    # emit(
+    #     "message",
+    #     {"text": "Creating game", "from": "DM", "created": str(datetime.now())},
+    #     broadcast=True,
+    # )
+    # """event listener when client connects to the server"""
+    # print(request.sid)
+    # print("client has connected")
     # game_details = game_defails_respository.get()
     # base_prompt = prompt_repository.generate(game_details)
     # dm_response = dm_ai.get_response(base_prompt.prompt_string)
@@ -91,6 +113,9 @@ def disconnected():
     """event listener when client disconnects to the server"""
     print("user disconnected")
     emit("disconnect", f"user {request.sid} disconnected", broadcast=True)
+
+
+web_socket_server = WebSocketServer()
 
 
 if __name__ == "__main__":
