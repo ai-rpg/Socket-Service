@@ -22,16 +22,15 @@ nicknames = {}
 
 class WebSocketServer:
     def __init__(self):
-
         pass
 
     def connected(self):
         WEBSOCKET_ACTIVE.inc()
-        self.games.append(GameCache('1', request.sid, ''))
+        self.games.append(GameCache("1", request.sid, ""))
         pass
 
     def message(self, data):
-        currentgame = [game for game in self.games if game.get('sid')==request.sid][0]
+        currentgame = [game for game in self.games if game.get("sid") == request.sid][0]
         pass
 
     def disconnect(self):
