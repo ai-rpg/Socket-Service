@@ -2,7 +2,6 @@ import abc
 
 
 class IRedisRepository(metaclass=abc.ABCMeta):
-
     @abc.abstractclassmethod
     def set(self, GameCache):
         raise NotImplementedError

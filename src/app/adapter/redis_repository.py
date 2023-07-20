@@ -9,7 +9,9 @@ from logger import log
 class RedisRepository(IRedisRepository):
     def __init__(self):
         log.info("Connection to Redis", extra={"tags": {"application": NAME}})
-        pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=0, password=REDIS_PASSWORD)
+        pool = redis.ConnectionPool(
+            host=REDIS_HOST, port=REDIS_PORT, db=0, password=REDIS_PASSWORD
+        )
         self.redis = redis.Redis(connection_pool=pool)
 
     def set(self, game_cache: GameCache):

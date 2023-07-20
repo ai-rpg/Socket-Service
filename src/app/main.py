@@ -6,18 +6,22 @@ from metrics import WEBSOCKET_ACTIVE, BASE_ROOT_CALLED, WEBSOCKET_MSGS_RECEIVED
 from logger import log
 from datetime import datetime
 from services.ai_service import AIService
+from services.adventure_service import AdventureService
 from adapter.redis_repository import RedisRepository
 from domain.game_caches_model import GameCache
+from starlette_prometheus import metrics, PrometheusMiddleware
 import json
 
 app = Flask(__name__)
 
 CORS(app)
+
+
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 class WebSocketServer:
-    def __init__(self, ai_service=None, redis_repository=None):
+    def __init__(self, ai_service=None, redis_repository=None, adventure_service=None):
         if ai_service is None:
             self.ai_service = AIService()
         else:
@@ -27,6 +31,11 @@ class WebSocketServer:
             self.redis_repository = RedisRepository()
         else:
             self.redis_repository = redis_repository
+
+        if adventure_service is None:
+            self.adventure_service = AdventureService()
+        else:
+            self.adventure_service = adventure_service
 
     def base_root(self):
         log.debug("base route called", extra={"tags": {"application": NAME}})
@@ -38,17 +47,18 @@ class WebSocketServer:
         WEBSOCKET_ACTIVE.inc()
         self.redis_repository.set(GameCache("1", request.sid, []))
 
-
     def message(self, data):
         log.info("message", extra={"tags": {"application": NAME}})
-        cache = self.redis_repository.get('1')
+        cache = self.redis_repository.get("1")
         WEBSOCKET_MSGS_RECEIVED.inc()
         holder = json.loads(cache)
-        current_game = GameCache(holder['user_id'], holder['sid'], holder['gamelog'])
+        current_game = GameCache(holder["user_id"], holder["sid"], holder["gamelog"])
         current_game.gamelog.append(data)
         self.redis_repository.set(current_game)
         responce = self.ai_service.request_from_ai(current_game.gamelog)
-        current_game.gamelog.append("{'role':'system', 'content':"+responce.text+"}")
+        current_game.gamelog.append(
+            "{'role':'system', 'content':" + responce.text + "}"
+        )
         log.info(current_game.toJSON(), extra={"tags": {"application": NAME}})
         return current_game.toJSON()
 
